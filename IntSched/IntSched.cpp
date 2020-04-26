@@ -21,18 +21,27 @@ std::vector<std::string> ParseLine(std::string line)
 
 std::vector<std::vector<std::string>> ReadInterviewList(std::string path)
 {
+	std::vector<std::vector<std::string>> RetInterviewList;
 	std::ifstream InterviewList(path);
-	std::vector<std::vector< std::string>> RetInterviewList;
-	while (InterviewList)
+	if (InterviewList.fail())
 	{
-		std::string line;
-		while (std::getline(InterviewList, line))
-		{
-			std::vector<std::string> row = ParseLine(line);
-			RetInterviewList.push_back(row);
-		}
+		std::cout<< "ERROR: File does not exist"<< std::endl;
+		return RetInterviewList;;
 	}
-	return RetInterviewList;
+	else
+	{
+		while (InterviewList)
+		{
+			std::string line;
+			while (std::getline(InterviewList, line))
+			{
+				std::vector<std::string> row = ParseLine(line);
+				RetInterviewList.push_back(row);
+			}
+		}
+		return RetInterviewList;
+	}
+	
 }
 
 void Print2DStringList(std::vector<std::vector<std::string>> List)
